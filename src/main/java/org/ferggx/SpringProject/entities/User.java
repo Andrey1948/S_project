@@ -39,7 +39,5 @@ public class User implements BaseEntity<Long> {
     @JoinColumn(name = "company_id")
     private Company company;
 
-    @Builder.Default
-    @OneToMany(mappedBy = "user")
-    private List<UserChat> userChats = new ArrayList<>();
 }
+
