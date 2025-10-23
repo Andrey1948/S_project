@@ -37,6 +37,7 @@ public class User implements BaseEntity<Long> {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "company_id")
+
     private Company company;
 
 }
