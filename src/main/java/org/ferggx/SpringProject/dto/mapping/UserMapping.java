@@ -22,5 +22,6 @@ public interface UserMapping {
     @Mapping(target = "role", ignore = true)
     @Mapping(target = "birthDate", ignore = true)
     User toEntity(UserDto dto);
+
 }
 
