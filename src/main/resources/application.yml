@@ -1,10 +1,8 @@
-
-
 spring:
   datasource:
     url: jdbc:postgresql://localhost:5432/springdata
-    username: postgres
-    password: postgres
+    username: postgre3s
+    password: postgre3s
     driver-class-name: org.postgresql.Driver
   jpa:
     properties.hibernate:
@@ -14,5 +12,5 @@ spring:
 
 logging:
   level:
-    root: WARN
+    root: INFO
     org.ferggx.SpringProject: INFO
