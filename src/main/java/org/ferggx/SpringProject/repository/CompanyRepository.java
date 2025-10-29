@@ -13,4 +13,6 @@ public interface CompanyRepository extends JpaRepository <Company, Integer> {
 
     @Override
     List<Company> findAll(Sort sort);
+
+
 }
