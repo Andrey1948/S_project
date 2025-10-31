@@ -11,8 +11,4 @@ public interface CompanyRepository extends JpaRepository <Company, Integer> {
 
     Optional<Company> findByName(String name);
 
-    @Override
-    List<Company> findAll(Sort sort);
-
-
 }

@@ -18,7 +18,7 @@ import java.util.Optional;
 @Transactional
 public class CompanyService {
 
-    private final DataSourceTransactionManager dataSourceTransactionManager;
+
     CompanyRepository companyRepository;
     CompanyMapping companyMapping;
 
