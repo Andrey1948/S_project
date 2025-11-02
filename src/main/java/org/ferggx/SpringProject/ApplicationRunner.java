@@ -8,7 +8,7 @@ import org.springframework.boot.context.properties.ConfigurationPropertiesScan;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@SpringBootApplication
+@SpringBootApplication(scanBasePackages = "org.ferggx.SpringProject")
 @ConfigurationPropertiesScan
 public class ApplicationRunner {
 

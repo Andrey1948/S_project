@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 public class CompanyDto {
 
 
-    private Long id;
+    private Integer id;
     private String name;
 
 }

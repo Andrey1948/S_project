@@ -4,6 +4,7 @@ package org.ferggx.SpringProject.service;
 import lombok.RequiredArgsConstructor;
 import lombok.ToString;
 import org.ferggx.SpringProject.dto.CompanyDto;
+import org.ferggx.SpringProject.dto.mapping.CompanyMapper;
 import org.ferggx.SpringProject.dto.mapping.CompanyMapping;
 import org.ferggx.SpringProject.repository.CompanyRepository;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
@@ -19,16 +20,16 @@ import java.util.Optional;
 public class CompanyService {
 
 
-    CompanyRepository companyRepository;
-    CompanyMapping companyMapping;
+    private final CompanyRepository companyRepository;
+    private final CompanyMapper mapper;
 
     public Optional<CompanyDto> findByName(String name) {
         var cc = companyRepository.findByName(name)
-                .map(c -> companyMapping.toDto(c));
+                .map(c -> mapper.toDto(c));
         cc.ifPresent(c -> System.out.println(c.getName()));
-            return cc;
-        }
-
+        return cc;
     }
+
+}
 
 

@@ -1,6 +1,7 @@
 import jakarta.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;
 import org.ferggx.SpringProject.ApplicationRunner;
+import org.ferggx.SpringProject.dto.mapping.CompanyMapping;
 import org.ferggx.SpringProject.entities.Company;
 import org.ferggx.SpringProject.repository.CompanyRepository;
 import org.junit.jupiter.api.Assertions;
@@ -20,7 +21,7 @@ import java.util.stream.Collectors;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 
-@TestConstructor(autowireMode = TestConstructor.AutowireMode.ALL) // если используешь конструктор
+ // если используешь конструктор
 //@ActiveProfiles("test") // чтобы брать application-test.yml
 @Transactional
 @SpringBootTest(classes = {ApplicationRunner.class})
@@ -28,7 +29,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public class CompanyTest {
 
     private final CompanyRepository companyRepository;
-    private final EntityManager entityManager;
+
 
     @Test
     public void test1() {

@@ -3,6 +3,7 @@ package org.ferggx.SpringProject.service;
 import lombok.RequiredArgsConstructor;
 import lombok.ToString;
 import org.ferggx.SpringProject.dto.UserDto;
+import org.ferggx.SpringProject.dto.mapping.UserMapper;
 import org.ferggx.SpringProject.dto.mapping.UserMapping;
 import org.ferggx.SpringProject.repository.UserRepository;
 import org.springframework.stereotype.Service;
@@ -16,15 +17,16 @@ import java.util.Optional;
 @Transactional
 public class UserService {
 
-     private final UserRepository userRepository;
-     private final UserMapping userMapping;
+    private final UserRepository userRepository;
+    private final UserMapper userMapper;
 
 
-     public Optional<UserDto> findByFirstname (String firstname){
-         var user = userRepository.findByFirstname(firstname).map(u->userMapping.toDto(u));
-         user.isPresent();
-         user.ifPresent(u->{
-             System.out.println(u);});
-         return Optional.ofNullable(user).orElseThrow(() -> new RuntimeException("Моё сообщение об ошибке")));
-     }
+    public Optional<UserDto> findByFirstname(String firstname) {
+        var user = userRepository.findByFirstname(firstname).map(u -> userMapper.toDto(u))
+                .map(u -> {
+                    System.out.println(u);
+                    return u;})
+        .orElseThrow(() -> new RuntimeException("Моё сообщение об ошибке"));
+        return Optional.empty();
+    }
 }
