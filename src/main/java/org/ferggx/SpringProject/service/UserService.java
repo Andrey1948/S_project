@@ -22,11 +22,11 @@ public class UserService {
 
 
     public Optional<UserDto> findByFirstname(String firstname) {
-        var user = userRepository.findByFirstname(firstname).map(u -> userMapper.toDto(u))
-                .map(u -> {
-                    System.out.println(u);
-                    return u;})
-        .orElseThrow(() -> new RuntimeException("Моё сообщение об ошибке"));
-        return Optional.empty();
+        return userRepository.findByFirstname(firstname)
+                .map(userMapper::toDto) // конвертируем User → UserDto
+                .map(dto -> {
+                    System.out.println(dto); // просто отладка
+                    return dto;
+                });
     }
 }
