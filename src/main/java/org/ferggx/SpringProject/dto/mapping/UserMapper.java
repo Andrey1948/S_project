@@ -24,7 +24,7 @@ public class UserMapper {
         user.setId(dto.getId());
         user.setFirstname(dto.getFirstName());
         user.setLastname(dto.getLastName());
-        user.setUsername(user.getUsername());
+        user.setUsername(dto.getUsername());
         // password, company, role, birthDate не трогаем (игнорируем)
         return user;
     }
