@@ -13,6 +13,7 @@ import java.util.Arrays;
 import java.util.List;
 
 @Controller
+@SessionAttributes({"user"})
 public class GreetingController {
 
 
@@ -29,9 +30,9 @@ public class GreetingController {
         return mv;
     }
 
-    @RequestMapping(value = "/bye", method = RequestMethod.GET)
-    public ModelAndView bye(ModelAndView mv, CompanyRepository companyRepository,
-                            HttpServletRequest request) {
+    @GetMapping("/bye")
+    public ModelAndView bye(ModelAndView mv,
+                            @SessionAttribute("user") UserReadDto user) {
         mv.setViewName("greeting/bye");
         return mv;
     }
