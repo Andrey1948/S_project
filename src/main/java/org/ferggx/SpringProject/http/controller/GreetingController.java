@@ -3,6 +3,7 @@ package org.ferggx.SpringProject.http.controller;
 import jakarta.servlet.http.HttpServletRequest;
 
 import org.ferggx.SpringProject.dto.UserDto;
+import org.ferggx.SpringProject.dto.UserReadDto;
 import org.ferggx.SpringProject.repository.CompanyRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -20,10 +21,11 @@ public class GreetingController {
                               HttpServletRequest request,
                               @RequestParam Integer age,
                               @RequestHeader String accept,
-                              @CookieValue("JSESSIONID") String jsessionId,
-                              @PathVariable("id") Integer id) {
+                              @CookieValue(value = "JSESSIONID") String jsessionId,
+                              @PathVariable ("id") Integer id) {
         mv.setViewName("greeting/hello");
-        mv.addObject("user", new UserDto(1L, "Ivan", "Ivanov", "ivan@gmail.com"));
+        mv.addObject("user", new UserReadDto (1L, "Artem"));
+
         return mv;
     }
 

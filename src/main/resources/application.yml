@@ -16,5 +16,5 @@ spring:
 
 logging:
   level:
-    root: WARN
+    root: INFO
     org.ferggx.SpringProject: INFO
