@@ -70,7 +70,7 @@ public class UserService {
         return userRepository.findById(id)
                 .map(entity -> {
                     userRepository.delete(entity);
-                    //   userRepository.flush();
+                       userRepository.flush();
                     return true;
                 })
                 .orElse(false);

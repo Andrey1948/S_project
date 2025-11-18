@@ -11,10 +11,12 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Collections;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -56,5 +58,16 @@ class CompanyServiceTest {
         verify(companyRepository).findByName("TestCo");
     }
 
+//unit with Mock
+    @Test
+    void findById() {
+        Mockito.doReturn(Optional.of(new Company(2, null, Collections.emptyMap())))
+                .when(companyRepository).findById(2);
+        var actualResult = companyService.findById(2);
 
+        assertTrue(actualResult.isPresent());
+        var expectedResult = new CompanyReadDto(2, null);
+        actualResult.ifPresent(actual -> assertEquals(expectedResult, actual));
+    }
 }
+

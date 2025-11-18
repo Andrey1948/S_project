@@ -36,10 +36,7 @@ public class UserServiceTest {
     @InjectMocks
     private UserService userService;
 
-    void findAll() {
-        List<UserReadDto> result = userService.findAll();
-        assertThat(result).hasSize(5);
-    }
+
 
 
     @Test

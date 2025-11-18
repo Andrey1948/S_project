@@ -28,8 +28,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.verify;
 
 
-// если используешь конструктор
-//@ActiveProfiles("test") // чтобы брать application-test.yml
+
 @Transactional
 @SpringBootTest(classes = {ApplicationRunner.class})
 @RequiredArgsConstructor
@@ -43,17 +42,8 @@ public class CompanyTest {
         var company = companyRepository.findByName("Google");
         assertTrue(company.isPresent());
     }
-
-    @Test
-    void findById() {
-        Mockito.doReturn(Optional.of(new Company(2, null, Collections.emptyMap())))
-                .when(companyRepository).findById(2);
-        var actualResult = companyService.findById(2);
-
-        assertTrue(actualResult.isPresent());
-        var expectedResult = new CompanyReadDto(2, null);
-        actualResult.ifPresent(actual -> assertEquals(expectedResult, actual));
-    }
 }
+
+
 
 
