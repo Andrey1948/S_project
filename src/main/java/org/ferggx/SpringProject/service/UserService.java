@@ -19,7 +19,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 @ToString
 @Service
-@Transactional
+@Transactional(readOnly = true)
 public class UserService {
 
     private final UserRepository userRepository;
@@ -39,15 +39,6 @@ public class UserService {
                 .map(userReadMapper::map);
     }
 
-    public UserReadDto create(UserCreateEditDto userDto) {
-        return Optional.of(userDto)
-                .map(userCreateEditMapper::map)
-                .map(userRepository::save)
-                .map(userReadMapper::map)
-                .orElseThrow();
-    }
-
-
     public Optional<UserDto> findByFirstname(String firstname) {
         return userRepository.findByFirstname(firstname)
                 .map(userMapper::toDto) // конвертируем User → UserDto
@@ -64,5 +55,26 @@ public class UserService {
                 .map(userRepository::saveAndFlush)
                 .map(userReadMapper::map);
     }
+
+    @Transactional
+    public UserReadDto create(UserCreateEditDto userDto) {
+        return Optional.of(userDto)
+                .map(userCreateEditMapper::map)
+                .map(userRepository::save)
+                .map(userReadMapper::map)
+                .orElseThrow();
+    }
+
+    @Transactional
+    public boolean delete(Long id) {
+        return userRepository.findById(id)
+                .map(entity -> {
+                    userRepository.delete(entity);
+                    //   userRepository.flush();
+                    return true;
+                })
+                .orElse(false);
+    }
+
 
 }

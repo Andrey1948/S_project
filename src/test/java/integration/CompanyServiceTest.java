@@ -2,6 +2,7 @@ package integration;
 
 import org.ferggx.SpringProject.ApplicationRunner;
 import org.ferggx.SpringProject.dto.CompanyDto;
+import org.ferggx.SpringProject.dto.CompanyReadDto;
 import org.ferggx.SpringProject.dto.mapping.CompanyMapper;
 import org.ferggx.SpringProject.entities.Company;
 import org.ferggx.SpringProject.repository.CompanyRepository;
@@ -54,4 +55,6 @@ class CompanyServiceTest {
         assertEquals("TestCo", result.get().getName());
         verify(companyRepository).findByName("TestCo");
     }
+
+
 }

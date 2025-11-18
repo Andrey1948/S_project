@@ -1,6 +1,7 @@
 package integration;
 
 import org.ferggx.SpringProject.dto.UserDto;
+import org.ferggx.SpringProject.dto.UserReadDto;
 import org.ferggx.SpringProject.dto.mapping.UserMapper;
 import org.ferggx.SpringProject.entities.User;
 import org.ferggx.SpringProject.repository.UserRepository;
@@ -12,8 +13,10 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.verify;
@@ -23,6 +26,7 @@ import static org.mockito.Mockito.when;
 @Transactional
 public class UserServiceTest {
 
+
     @Mock
     private UserRepository userRepository;
 
@@ -31,6 +35,12 @@ public class UserServiceTest {
 
     @InjectMocks
     private UserService userService;
+
+    void findAll() {
+        List<UserReadDto> result = userService.findAll();
+        assertThat(result).hasSize(5);
+    }
+
 
     @Test
     public void findByFirstName() {
@@ -49,6 +59,7 @@ public class UserServiceTest {
         assertTrue(result.isPresent());
         assertEquals("Tito", result.get().getFirstName());
         verify(userRepository).findByFirstname("Tito");
-
     }
+
+
 }
