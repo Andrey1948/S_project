@@ -2,6 +2,7 @@ package org.ferggx.SpringProject.http.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.ferggx.SpringProject.dto.UserCreateEditDto;
+import org.ferggx.SpringProject.dto.UserReadDto;
 import org.ferggx.SpringProject.service.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -29,8 +30,8 @@ public class UserController {
 
     @PostMapping
     public String create(@ModelAttribute UserCreateEditDto user) {
-//        userService.create(user);
-        return "redirect:/user/" + 25;
+        UserReadDto dto = userService.create(user);
+        return "redirect:/users/" + dto.getId();
 
     }
 
