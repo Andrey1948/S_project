@@ -1,6 +1,7 @@
 package org.ferggx.SpringProject.dto.mapping;
 
 import lombok.RequiredArgsConstructor;
+import lombok.experimental.FieldNameConstants;
 import org.ferggx.SpringProject.dto.UserCreateEditDto;
 import org.ferggx.SpringProject.entities.Company;
 import org.ferggx.SpringProject.entities.User;
