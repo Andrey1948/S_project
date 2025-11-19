@@ -7,6 +7,7 @@ import org.ferggx.SpringProject.dto.CompanyDto;
 import org.ferggx.SpringProject.dto.CompanyReadDto;
 import org.ferggx.SpringProject.dto.mapping.CompanyMapper;
 import org.ferggx.SpringProject.dto.mapping.CompanyMapping;
+import org.ferggx.SpringProject.dto.mapping.CompanyReadMapper;
 import org.ferggx.SpringProject.repository.CompanyRepository;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.stereotype.Service;
@@ -24,6 +25,13 @@ public class CompanyService {
 
     private final CompanyRepository companyRepository;
     private final CompanyMapper mapper;
+    private final CompanyReadMapper companyReadMapper;
+
+    public List<CompanyReadDto> findAll() {
+        return companyRepository.findAll().stream()
+                .map(companyReadMapper::map)
+                .toList();
+    }
 
     public Optional<CompanyDto> findByName(String name) {
         var cc = companyRepository.findByName(name)
