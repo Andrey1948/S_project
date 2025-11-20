@@ -18,7 +18,7 @@ import java.util.List;
 @SessionAttributes({"user"})
 @RequestMapping("/api/v1")
 public class GreetingController {
-
+    //localhost:8080/api/v1/hello?username=Andrei
 
     @ModelAttribute("roles")
     public List<Role> getRoles  () {
