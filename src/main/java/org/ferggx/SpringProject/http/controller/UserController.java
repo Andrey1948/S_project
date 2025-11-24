@@ -9,8 +9,11 @@ import org.ferggx.SpringProject.service.UserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 @RequestMapping("/users")
@@ -27,6 +30,14 @@ public class UserController {
         return "user/users";
     }
 
+    @GetMapping("/registration")
+    public String registration(Model model, @ModelAttribute("user") UserCreateEditDto user) {
+        model.addAttribute("user", user);
+        model.addAttribute("roles", Role.values());
+        model.addAttribute("companies", companyService.findAll());
+        return "user/registration";
+    }
+
     @GetMapping("/{id}")
     public String findById(@PathVariable("id") Long id, Model model) {
         return userService.findById(id)
@@ -40,11 +51,19 @@ public class UserController {
     }
 
     @PostMapping
-    public String create(@ModelAttribute UserCreateEditDto user) {
+    public String create(@ModelAttribute @Validated UserCreateEditDto user,
+                         BindingResult bindingResult,
+                         RedirectAttributes redirectAttributes) {
+        if (bindingResult.hasErrors()) {
+            redirectAttributes.addFlashAttribute("user", user);
+            redirectAttributes.addFlashAttribute("errors", bindingResult.getAllErrors());
+            return "redirect:/users/registration";
+        }
         UserReadDto dto = userService.create(user);
         return "redirect:/users/" + dto.getId();
-
     }
+
+
 
     @PostMapping("{id}/update")
     public String update(@PathVariable("id") Long id, @ModelAttribute UserCreateEditDto user) {

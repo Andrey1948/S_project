@@ -19,7 +19,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 @ToString
 @Service
-@Transactional
+@Transactional(readOnly = true)
 public class CompanyService {
 
 
