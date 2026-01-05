@@ -30,6 +30,15 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 public class UserControllerIT {
     private final MockMvc mockMvc;
 
+
+    @Test
+    void findById() throws Exception {
+        mockMvc.perform(get("/users/{id}", 1L))
+                .andExpect(status().is2xxSuccessful())
+                .andExpect(view().name("user/user"))
+                .andExpect(model().attributeExists("user"));
+    }
+
     @Test
     void findAll() throws Exception {
         mockMvc.perform(get("/users"))
@@ -54,5 +63,30 @@ public class UserControllerIT {
                         redirectedUrlPattern("/users/{\\d+}")
                 );
     }
+
+    @Test
+    void update() throws Exception {
+        mockMvc.perform(post("/users/{id}/update", 1L)
+                .param(UserCreateEditDto.Fields.username, "test1@gmail.com")
+                .param(UserCreateEditDto.Fields.firstname, "Test1")
+                .param(UserCreateEditDto.Fields.lastname, "TestTest2")
+                .param(UserCreateEditDto.Fields.role, "USER")
+                .param(UserCreateEditDto.Fields.companyId, "22")
+                .param(UserCreateEditDto.Fields.birthDate, "02-02-2010"))
+                .andExpectAll(
+                        status().is3xxRedirection(),
+                        redirectedUrlPattern("/users/{\\d+}")
+                );
+
+    }
+
+    @Test
+    void delete() throws Exception {
+        mockMvc.perform(post("/users/{id}/delete", 1L))
+                .andExpect(status().is3xxRedirection())
+                .andExpect(redirectedUrl("/users"));
+    }
+
+
 
 }
