@@ -1,11 +1,15 @@
 package org.ferggx.SpringProject.http.controller;
 
 import lombok.RequiredArgsConstructor;
+import org.ferggx.SpringProject.dto.PageResponse;
 import org.ferggx.SpringProject.dto.UserCreateEditDto;
+import org.ferggx.SpringProject.dto.UserFilter;
 import org.ferggx.SpringProject.dto.UserReadDto;
 import org.ferggx.SpringProject.entities.Role;
 import org.ferggx.SpringProject.service.CompanyService;
 import org.ferggx.SpringProject.service.UserService;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,6 +18,8 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+
 
 @Controller
 @RequestMapping("/users")
@@ -24,9 +30,11 @@ public class UserController {
 
 
     @GetMapping
-    public String findAll(Model model) {
-        model.addAttribute("users", userService.findAll());
-//        model.addAttribute("users", userService.findAll(filter));
+    public String findAll(Model model, UserFilter filter, Pageable pageable) {
+//        model.addAttribute("users", userService.findAll());
+        Page<UserReadDto> page = userService.findAll(filter, pageable);
+        model.addAttribute("users", PageResponse.of(page));
+        model.addAttribute("filter", filter);
         return "user/users";
     }
 
